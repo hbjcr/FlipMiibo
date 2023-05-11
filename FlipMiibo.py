@@ -63,8 +63,16 @@ def amiiCombine(totalpages,pagelist,cleanuid,f):
         nfcfile.write("\n")
     nfcfile.close()
 
-files = [f for f in os.listdir('.') if os.path.isfile(f)]
-for f in files:
-    if f.endswith(".bin"):
-        totalpages,pagelist,cleanuid = amiiDump(f)
-        amiiCombine(totalpages,pagelist,cleanuid,f)
+print('Start')
+
+path = "."
+fname = []
+for root,d_names,f_names in os.walk(path):
+    for f in f_names:
+        if f.endswith(".bin"):
+            filename = os.path.join(root, f)
+            print(filename, '\n')
+            totalpages,pagelist,cleanuid = amiiDump(filename)
+            amiiCombine(totalpages,pagelist,cleanuid,filename)
+
+print('Finish')
